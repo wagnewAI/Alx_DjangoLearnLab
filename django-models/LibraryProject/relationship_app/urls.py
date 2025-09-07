@@ -1,7 +1,20 @@
-from django.urls import path
+#from django.urls import path
 from django.contrib.auth.views import LoginView, LogoutView
-from . import views
-
+#from . import views
+from django.urls import path
+from .views import (
+    list_books,
+    LibraryDetailView,
+    register_view,
+    login_view,
+    logout_view,
+    admin_view,
+    librarian_view,
+    member_view,
+    add_book,
+    edit_book,
+    delete_book,
+)
 urlpatterns = [
     path("books/", views.list_books, name="list_books"),  # FBV
     path("library/<int:pk>/", views.LibraryDetailView.as_view(), name="library_detail"),  # CBV
