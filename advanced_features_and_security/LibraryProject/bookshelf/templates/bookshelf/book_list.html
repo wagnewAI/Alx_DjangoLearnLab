@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+{% csrf_token %}
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+    </head>
+<ul>
+    {% for book in books %}
+        <li>{{ book.title }}</li>
+    {% endfor %}
+</ul>
+
+</html>
