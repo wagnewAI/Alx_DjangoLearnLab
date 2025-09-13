@@ -107,7 +107,8 @@ CONTENT_SECURITY_POLICY = {
 
 ROOT_URLCONF = 'LibraryProject.urls'
 # settings.py
-AUTH_USER_MODEL = "relationship_app.CustomUser"
+#AUTH_USER_MODEL = "relationship_app.CustomUser"
+AUTH_USER_MODEL = "bookshelf.CustomUser"
 
 
 TEMPLATES = [
