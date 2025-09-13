@@ -24,7 +24,8 @@ SECRET_KEY = 'django-insecure-pc$x0om867xhr7@mcssq90mo02s0w-vtu&)^i#*q@!kq8saou(
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
-
+# Tell Django it’s behind a proxy that handles HTTPS
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
 
 # Enforce HTTPS for all requests
