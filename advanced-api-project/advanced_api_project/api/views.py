@@ -1,7 +1,7 @@
-from django.shortcuts import render
-
+# # api/views.py
 # Create your views here.
 from rest_framework import generics, permissions, filters
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 from django_filters.rest_framework import DjangoFilterBackend
 from .models import Book
 from .serializers import BookSerializer
