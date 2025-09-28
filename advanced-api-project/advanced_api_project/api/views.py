@@ -1,6 +1,5 @@
 # # api/views.py
 # Create your views here.
-from api import views
 from rest_framework import generics, permissions, filters
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 from django_filters import rest_framework as django_filters
