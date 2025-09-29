@@ -38,8 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+     'api',
     'django_filters',
-    'api',   # ✅ nested app path
+      # ✅ nested app path
 ]
 
 MIDDLEWARE = [
