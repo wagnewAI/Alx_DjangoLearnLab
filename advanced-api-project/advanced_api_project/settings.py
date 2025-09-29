@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'django_filters',
-    'advanced_api_project.api',   # ✅ nested app path
+    'api',   # ✅ nested app path
 ]
 
 MIDDLEWARE = [
