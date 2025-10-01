@@ -46,6 +46,7 @@ class BookAPITestCase(TestCase):
     # -----------------------------
     def test_create_book_unauthenticated(self):
         """Unauthenticated users cannot create a book"""
+        self.client.login(username="testuser", password="password123")
         self.client.force_authenticate(user=None)  # explicitly unauthenticated
         response = self.client.post("/api/books/create/", {
             "title": "New Book",
