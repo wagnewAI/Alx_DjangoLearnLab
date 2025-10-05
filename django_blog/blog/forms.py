@@ -8,7 +8,7 @@ class PostForm(forms.ModelForm):
         model = Post
         fields = ['title', 'content', 'tags']
         widgets = {
-            'tags': TagWidget(attrs={'class': 'form-control'}),  # <-- TagWidget correctly applied
+            'tags': TagWidget[(attrs={'class': 'form-control'})],  # <-- TagWidget correctly applied
         }
 
 # Form for adding/editing comments
