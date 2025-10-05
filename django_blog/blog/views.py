@@ -1,5 +1,5 @@
 # Create your views here.
-from django.shortcuts import render, redirect,  get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy
@@ -40,6 +40,7 @@ def profile(request):
         messages.success(request, 'Profile updated successfully!')
         return redirect('profile')
     return render(request, 'blog/profile.html')
+
 # List all posts
 class PostListView(ListView):
     model = Post
@@ -82,7 +83,7 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         post = self.get_object()
         return self.request.user == post.author
 
-# Add comment to a post
+# Add comment to a post (function-based view)
 @login_required
 def add_comment(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
@@ -97,6 +98,21 @@ def add_comment(request, post_id):
     else:
         form = CommentForm()
     return render(request, 'blog/add_comment.html', {'form': form})
+
+# Add comment to a post (class-based view)
+class CommentCreateView(LoginRequiredMixin, CreateView):
+    model = Comment
+    form_class = CommentForm
+    template_name = 'blog/add_comment.html'  # reuse your template
+
+    def form_valid(self, form):
+        post_id = self.kwargs.get('post_id')
+        form.instance.post = get_object_or_404(Post, pk=post_id)
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('post-detail', kwargs={'pk': self.object.post.pk})
 
 # Edit comment
 class CommentUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
@@ -119,6 +135,8 @@ class CommentDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     def test_func(self):
         comment = self.get_object()
         return self.request.user == comment.author
+
+# Search posts
 def search_posts(request):
     query = request.GET.get('q')
     results = Post.objects.none()
@@ -126,12 +144,11 @@ def search_posts(request):
         results = Post.objects.filter(
             Q(title__icontains=query) |
             Q(content__icontains=query) |
-            Q(tags__name__icontains=query)  # Search in tags
+            Q(tags__name__icontains=query)
         ).distinct()
     return render(request, 'blog/search_results.html', {'results': results, 'query': query})
+
+# Posts by tag
 def posts_by_tag(request, tag_name):
     posts = Post.objects.filter(tags__name__in=[tag_name])
     return render(request, 'blog/post_list.html', {'posts': posts, 'tag': tag_name})
-    
-   
-    
