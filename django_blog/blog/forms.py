@@ -1,20 +1,16 @@
 from django import forms
-from .models import Post
-from .models import Comment
+from .models import Post, Comment
 from taggit.forms import TagWidget
 
+# Form for creating/editing posts
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = ['title', 'content', 'tags']
-
-class CommentForm(forms.ModelForm):
-    class Meta:
-        model = Comment
-        fields = ['content']
         widgets = {
-            'tags': TagWidget(attrs={'class': 'form-control'}),
+            'tags': TagWidget(attrs={'class': 'form-control'}),  # Correct use of TagWidget
         }
+
 # Form for adding/editing comments
 class CommentForm(forms.ModelForm):
     class Meta:
@@ -23,3 +19,4 @@ class CommentForm(forms.ModelForm):
         widgets = {
             'text': forms.Textarea(attrs={'rows': 3, 'class': 'form-control'}),
         }
+
