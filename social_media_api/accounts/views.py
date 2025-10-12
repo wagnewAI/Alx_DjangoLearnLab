@@ -2,6 +2,7 @@ from django.shortcuts import render
 
 # Create your views here.
 from rest_framework.views import APIView
+from .models import CustomUser
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
 from rest_framework import status, permissions, generics
@@ -10,6 +11,11 @@ from django.contrib.auth import get_user_model
 from .serializers import UserRegistrationSerializer, UserLoginSerializer, SimpleUserSerializer
 
 User = get_user_model()
+
+class UserListAPIView(generics.ListAPIView):
+    queryset = CustomUser.objects.all()  # <-- fetch all users
+    serializer_class = SimpleUserSerializer
+    permission_classes = [permissions.AllowAny]  # or IsAuthenticate
 
 class RegisterView(APIView):
     def post(self, request):
