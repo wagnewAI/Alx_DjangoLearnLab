@@ -17,7 +17,8 @@ class SmallResultsSetPagination(PageNumberPagination):
 
 
 class PostViewSet(viewsets.ModelViewSet):
-    queryset = Post.objects.select_related('author').prefetch_related('comments')
+    # queryset = Post.objects.select_related('author').prefetch_related('comments')
+    queryset = Post.objects.all()
     serializer_class = PostSerializer
     permission_classes = [IsOwnerOrReadOnly]
     pagination_class = SmallResultsSetPagination
@@ -31,7 +32,8 @@ class PostViewSet(viewsets.ModelViewSet):
 
 
 class CommentViewSet(viewsets.ModelViewSet):
-    queryset = Comment.objects.select_related('author', 'post')
+    # queryset = Comment.objects.select_related('author', 'post')
+     queryset = Comment.objects.all() 
     serializer_class = CommentSerializer
     permission_classes = [IsOwnerOrReadOnly]
     pagination_class = SmallResultsSetPagination
